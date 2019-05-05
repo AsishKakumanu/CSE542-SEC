@@ -1,3 +1,4 @@
+package edu.buffalo;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -53,8 +54,6 @@ public class mainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
-
 		// Headers of the table
 		String[] columns = new String[] { "Name", "Email ID", "Question", "Time" };
 
