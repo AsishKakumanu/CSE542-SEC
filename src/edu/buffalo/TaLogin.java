@@ -2,7 +2,9 @@ package edu.buffalo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -316,8 +318,9 @@ public class TaLogin {
 		JFrame mainFrame = new JFrame(frameName);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setSize(800, 800);
-		mainFrame.setBounds(800, 800, 800, 800);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		mainFrame.setSize(screenSize.width, screenSize.height);
+		mainFrame.setBounds(100, 100, screenSize.width, screenSize.height);
 		mainFrame.getContentPane().setLayout(null);
 		mainFrame.getContentPane().setBackground(Color.gray);
 		// System.out.println("Initialized Frame");
