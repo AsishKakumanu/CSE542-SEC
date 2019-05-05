@@ -28,17 +28,15 @@ public class ReservationGenerator {
 	 * @return
 	 */
 	public Queue<Reservation> generateReservations(int low, int high, List<String> shuffledQuestionList,
-			List<Date> shuffledTimeList, List<String> shuffledNameList, Hashtable<String, String> nameTable)
+			List<String> shuffledTimeList, List<String> shuffledNameList, Hashtable<String, String> nameTable)
 	{
 		reservationQueue = new LinkedList<Reservation>();
 		Random randomNumber = new Random();
-		int numberOfReservation = randomNumber.nextInt(high-low) + low;		
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-    	Date date = new Date();
+		int numberOfReservation = randomNumber.nextInt(high-low) + low;	
     	
-		for(int i=0; i<=numberOfReservation; i++)
+		for(int i=0; i<numberOfReservation; i++)
 		{
-	    	String reservationTime = String.valueOf(dateFormat.format(date))+shuffledTimeList.get(i);
+	    	String reservationTime = shuffledTimeList.get(i);
 			Reservation reservation = new Reservation(i, reservationTime, new Student(shuffledNameList.get(i),
 					nameTable.get(shuffledNameList.get(i)), null, shuffledQuestionList.get(i)));
 			reservationQueue.add(reservation);
