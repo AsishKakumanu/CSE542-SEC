@@ -6,6 +6,7 @@ public class Reservation {
 	private Student student;
 	private int reservationId;
 	private String reservationTime;
+	private String reservationStatus;
 	
 	public Reservation(int reservationId, String reservationTime, Student student)
 	{
@@ -32,6 +33,13 @@ public class Reservation {
 	}
 	protected void setReservationTime(String reservationTime) {
 		this.reservationTime = reservationTime;
+	}
+	
+	protected String getReservationStatus() {
+		return reservationStatus;
+	}
+	protected void setReservationStatus(String reservationStatus) {
+		this.reservationStatus = reservationStatus;
 	}
 	
 }

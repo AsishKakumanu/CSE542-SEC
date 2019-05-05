@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,13 +15,16 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Queue;
-import java.util.TimeZone;
-
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextPane;
 
 public class TaLogin {
 
 	static Queue<Reservation> reservationQueue;
+	static String currentTime;
+	static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	// Names & email
 	private static Hashtable<String, String> nameTable = new Hashtable<String, String>() {
@@ -50,16 +54,27 @@ public class TaLogin {
 	// CurrentTime
 	private static ArrayList<Date> timeList = new ArrayList<Date>() {
 		{
+			Date date = new Date();
+			currentTime = String.valueOf(dateFormat.format(date));
 			getTime(5);
 			getTime(11);
 			getTime(0);
+			getTime(4);
+			getTime(10);
 		}
 	};
 
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new TaLogin();
+				try {
+					new TaLogin();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 	}
@@ -71,15 +86,16 @@ public class TaLogin {
 		List<String> shuffledNameList;
 		shuffledQuestionList = getShuffledQuestionList(questionList);
 		shuffledTimeList = getShuffledTimeList(finalTimeList);
-		for (int i = 0; i < shuffledTimeList.size(); i++) {
-			System.out.println(shuffledTimeList.get(i));
-		}
+//		for (int i = 0; i < shuffledTimeList.size(); i++) {
+//			System.out.println(shuffledTimeList.get(i));
+//		}
 		ArrayList keys = new ArrayList<>(nameTable.keySet());
 		shuffledNameList = getShuffledNameList(keys);
-		reservationQueue = reservationGenerator.generateReservations(0, 4, shuffledQuestionList, shuffledTimeList,
+		reservationQueue = reservationGenerator.generateReservations(0, 5, shuffledQuestionList, shuffledTimeList,
 				shuffledNameList, nameTable);
 
 		if (reservationQueue.isEmpty()) {
+			displayEmptyQueue();
 			System.out.println(reservationQueue.size());
 		} else {
 			for (Reservation res : reservationQueue) {
@@ -100,7 +116,8 @@ public class TaLogin {
 		if (reservationQueue.isEmpty()) {
 			displayEmptyQueue();
 		} else {
-			JFrame mainFrame = initializeFrame();
+			JFrame mainFrame = initializeFrame("TA Portal");
+			initializeLabel(mainFrame, "Appointment Portal");
 			JLabel studentLabel = new JLabel("Student Details:");
 			studentLabel.setFont(new Font("Verdana", Font.BOLD, 30));
 			studentLabel.setForeground(Color.white);
@@ -162,13 +179,12 @@ public class TaLogin {
 			mainFrame.getContentPane().add(studentScheduledTimeLabelValue);
 
 			JLabel currentTimeLabelValue = new JLabel("");
-			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-			Date date = new Date();
-			currentTimeLabelValue.setText(String.valueOf(dateFormat.format(date)));
+			currentTimeLabelValue.setText(currentTime);
 			currentTimeLabelValue.setFont(new Font("Verdana", Font.BOLD, 30));
 			currentTimeLabelValue.setForeground(Color.white);
 			currentTimeLabelValue.setBounds(650, 410, 500, 100);
 			mainFrame.getContentPane().add(currentTimeLabelValue);
+			mainFrame.setVisible(true);
 
 			JButton absentButton = new JButton("Absent");
 			absentButton.setFont(new Font("Verdana", Font.BOLD, 30));
@@ -177,11 +193,45 @@ public class TaLogin {
 			mainFrame.getContentPane().add(absentButton);
 			absentButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
 					mainFrame.dispose();
+					JFrame statusFrame = initializeFrame("Reservation Queue");
+					JTextPane reservationQueueDetails = new JTextPane();
+					reservationQueueDetails.setBounds(12, 13, 600, 1200);
+					reservationQueueDetails.setFont(new Font("Verdana", Font.BOLD, 15));
+					reservationQueueDetails.setEditable(false);
+					statusFrame.getContentPane().add(reservationQueueDetails);
+					Reservation currentReservation = reservationQueue.peek();
+					boolean isBanned = checkReservationPassedTime(currentReservation.getReservationTime());
+					if (isBanned) {
+						try {
+							currentReservation.getStudent().setBannedDate(dateFormat.parse(currentTime));
+							currentReservation
+									.setReservationStatus("Student Banned on" + dateFormat.parse(currentTime));
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+					} else {
+						currentReservation.setReservationStatus("Moved to End");
+					}
+					reservationQueue.poll();
+					reservationQueue.add(currentReservation);
+					String queueDetails = "";
+					for (Reservation res : reservationQueue) {
+						if (res.getReservationStatus() == null || res.getReservationStatus().length() == 0) {
+							res.setReservationStatus("Status Not Set");
+						}
+						queueDetails += " \nReservation Id : " + res.getReservationId() + " \nStudent Name : "
+								+ res.getStudent().getStudentName() + " \nEmailId : "
+								+ res.getStudent().getStudentEmailId() + " \nQueries : "
+								+ res.getStudent().getStudentQueries() + " \nReservation Scheduled Time : "
+								+ res.getReservationTime() + " \nStatus : " + res.getReservationStatus()
+								+ " ------------------------------------------------------------------------------------"
+								+ " \n";
+					}
+					reservationQueueDetails.setText(queueDetails);
+					statusFrame.setVisible(true);
 				}
 			});
-			
 
 			JButton presentButton = new JButton("Present");
 			presentButton.setFont(new Font("Verdana", Font.BOLD, 30));
@@ -191,16 +241,56 @@ public class TaLogin {
 			presentButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					mainFrame.dispose();
+					JFrame statusFrame = initializeFrame("Reservation Queue");
+					JTextPane reservationQueueDetails = new JTextPane();
+					reservationQueueDetails.setBounds(12, 13, 600, 1200);
+					reservationQueueDetails.setFont(new Font("Verdana", Font.BOLD, 15));
+					reservationQueueDetails.setEditable(false);
+					statusFrame.getContentPane().add(reservationQueueDetails);
+					reservationQueue.poll();
+					String queueDetails = "";
+					for (Reservation res : reservationQueue) {
+						if (res.getReservationStatus() == null || res.getReservationStatus().length() == 0) {
+							res.setReservationStatus("Status Not Set");
+						}
+						queueDetails += " \nReservation Id : " + res.getReservationId() + " \nStudent Name : "
+								+ res.getStudent().getStudentName() + " \nEmailId : "
+								+ res.getStudent().getStudentEmailId() + " \nQueries : "
+								+ res.getStudent().getStudentQueries() + " \nReservation Scheduled Time : "
+								+ res.getReservationTime() + " \nStatus : " + res.getReservationStatus()
+								+ " ------------------------------------------------------------------------------------"
+								+ " \n";
+					}
+					reservationQueueDetails.setText(queueDetails);
+					statusFrame.setVisible(true);
 				}
 			});
-			mainFrame.setVisible(true);
 		}
 
 	}
 
+	private boolean checkReservationPassedTime(String currentReservation) {
+		final long ONE_MINUTE_IN_MILLIS = 60000;
+		Calendar cal = Calendar.getInstance();
+		Calendar newCal = Calendar.getInstance();
+		try {
+			cal.setTime(dateFormat.parse(currentTime));
+			newCal.setTime(dateFormat.parse(currentReservation));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		long currTime = cal.getTimeInMillis();
+		long reservationTime = newCal.getTimeInMillis();
+		if (currTime - reservationTime >= 10 * ONE_MINUTE_IN_MILLIS) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	private void displayEmptyQueue() {
-		JFrame mainFrame = initializeFrame();
-		JLabel noReservationLabel = new JLabel("No Reservation Found. Please click on exit.");
+		JFrame mainFrame = initializeFrame("TA Portal");
+		JLabel noReservationLabel = new JLabel("No Reservations Found. Please click on exit.");
 		noReservationLabel.setFont(new Font("Verdana", Font.BOLD, 30));
 		noReservationLabel.setForeground(Color.white);
 		noReservationLabel.setBounds(400, 240, 1400, 100);
@@ -219,21 +309,25 @@ public class TaLogin {
 		mainFrame.setVisible(true);
 	}
 
-	private JFrame initializeFrame() {
-		JFrame mainFrame = new JFrame("TA Portal");
+	private JFrame initializeFrame(String frameName) {
+		JFrame mainFrame = new JFrame(frameName);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setSize(800, 800);
 		mainFrame.setBounds(800, 800, 800, 800);
 		mainFrame.getContentPane().setLayout(null);
 		mainFrame.getContentPane().setBackground(Color.gray);
+		//System.out.println("Initialized Frame");
+		return mainFrame;
+	}
 
-		JLabel taLabel = new JLabel("Appointment Portal");
+	private void initializeLabel(JFrame mainFrame, String portalName) {
+		JLabel taLabel = new JLabel(portalName);
 		taLabel.setFont(new Font("Verdana", Font.BOLD, 30));
 		taLabel.setForeground(Color.white);
 		taLabel.setBounds(500, 20, 500, 100);
 		mainFrame.getContentPane().add(taLabel);
-		return mainFrame;
+		//System.out.println("Initialized Label");
 	}
 
 	/**
@@ -277,11 +371,14 @@ public class TaLogin {
 	 */
 	private static String getTime(int minutes) {
 		final long ONE_MINUTE_IN_MILLIS = 60000;
-		Calendar newDate = Calendar.getInstance();
-		long currentTime = newDate.getTimeInMillis();
-		Date newTime = new Date(currentTime - (minutes * ONE_MINUTE_IN_MILLIS));
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		try {
+			cal.setTime(dateFormat.parse(currentTime));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		long currTime = cal.getTimeInMillis();
+		Date newTime = new Date(currTime - (minutes * ONE_MINUTE_IN_MILLIS));
 		String dateFormatted = String.valueOf(dateFormat.format(newTime));
 		finalTimeList.add(dateFormatted);
 		return dateFormatted;
