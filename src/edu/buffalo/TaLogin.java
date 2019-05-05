@@ -205,8 +205,7 @@ public class TaLogin {
 					if (isBanned) {
 						try {
 							currentReservation.getStudent().setBannedDate(dateFormat.parse(currentTime));
-							currentReservation
-									.setReservationStatus("Student Banned on" + dateFormat.parse(currentTime));
+							currentReservation.setReservationStatus("Student Banned on " + currentTime);
 						} catch (ParseException e1) {
 							e1.printStackTrace();
 						}
@@ -249,20 +248,24 @@ public class TaLogin {
 					statusFrame.getContentPane().add(reservationQueueDetails);
 					reservationQueue.poll();
 					String queueDetails = "";
-					for (Reservation res : reservationQueue) {
-						if (res.getReservationStatus() == null || res.getReservationStatus().length() == 0) {
-							res.setReservationStatus("Status Not Set");
+					if (reservationQueue.isEmpty()) {
+						displayEmptyQueue();
+					} else {
+						for (Reservation res : reservationQueue) {
+							if (res.getReservationStatus() == null || res.getReservationStatus().length() == 0) {
+								res.setReservationStatus("Status Not Set");
+							}
+							queueDetails += " \nReservation Id : " + res.getReservationId() + " \nStudent Name : "
+									+ res.getStudent().getStudentName() + " \nEmailId : "
+									+ res.getStudent().getStudentEmailId() + " \nQueries : "
+									+ res.getStudent().getStudentQueries() + " \nReservation Scheduled Time : "
+									+ res.getReservationTime() + " \nStatus : " + res.getReservationStatus()
+									+ " ------------------------------------------------------------------------------------"
+									+ " \n";
 						}
-						queueDetails += " \nReservation Id : " + res.getReservationId() + " \nStudent Name : "
-								+ res.getStudent().getStudentName() + " \nEmailId : "
-								+ res.getStudent().getStudentEmailId() + " \nQueries : "
-								+ res.getStudent().getStudentQueries() + " \nReservation Scheduled Time : "
-								+ res.getReservationTime() + " \nStatus : " + res.getReservationStatus()
-								+ " ------------------------------------------------------------------------------------"
-								+ " \n";
+						reservationQueueDetails.setText(queueDetails);
+						statusFrame.setVisible(true);
 					}
-					reservationQueueDetails.setText(queueDetails);
-					statusFrame.setVisible(true);
 				}
 			});
 		}
@@ -317,7 +320,7 @@ public class TaLogin {
 		mainFrame.setBounds(800, 800, 800, 800);
 		mainFrame.getContentPane().setLayout(null);
 		mainFrame.getContentPane().setBackground(Color.gray);
-		//System.out.println("Initialized Frame");
+		// System.out.println("Initialized Frame");
 		return mainFrame;
 	}
 
@@ -327,7 +330,7 @@ public class TaLogin {
 		taLabel.setForeground(Color.white);
 		taLabel.setBounds(500, 20, 500, 100);
 		mainFrame.getContentPane().add(taLabel);
-		//System.out.println("Initialized Label");
+		// System.out.println("Initialized Label");
 	}
 
 	/**
