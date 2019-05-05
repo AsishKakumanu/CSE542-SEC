@@ -320,7 +320,7 @@ public class TaLogin {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		mainFrame.setSize(screenSize.width, screenSize.height);
-		mainFrame.setBounds(100, 100, screenSize.width, screenSize.height);
+		mainFrame.setBounds(0, 0, screenSize.width, screenSize.height);
 		mainFrame.getContentPane().setLayout(null);
 		mainFrame.getContentPane().setBackground(Color.gray);
 		// System.out.println("Initialized Frame");
