@@ -2,6 +2,12 @@ package edu.buffalo;
 
 import java.util.Date;
 
+/**
+ * This class is a POJO class for student.
+ * @author miki
+ *
+ */
+
 public class Student {
 	
 	private String studentName;

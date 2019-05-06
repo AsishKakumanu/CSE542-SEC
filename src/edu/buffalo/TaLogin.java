@@ -22,6 +22,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
+/**
+ * This class handles all the interactions with the gui and is the driver class.
+ * @author miki
+ *
+ */
 public class TaLogin {
 
 	static Queue<Reservation> reservationQueue;

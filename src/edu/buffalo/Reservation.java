@@ -1,7 +1,10 @@
 package edu.buffalo;
 
-import java.util.Date;
-
+/**
+ * This class is a POJO class for reservation.
+ * @author miki
+ *
+ */
 public class Reservation {
 	private Student student;
 	private int reservationId;

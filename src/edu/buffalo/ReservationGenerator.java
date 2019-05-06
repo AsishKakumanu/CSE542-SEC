@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.TimeZone;
 
 /**
- * This class is generates random number of reservations using generateReservations menthod.
+ * This class generates random number of reservations using generateReservations menthod.
  * @author miki
  *
  */
