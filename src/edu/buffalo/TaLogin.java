@@ -213,14 +213,15 @@ public class TaLogin {
 						try {
 							currentReservation.getStudent().setBannedDate(dateFormat.parse(currentTime));
 							currentReservation.setReservationStatus("Student Banned on " + currentTime);
+							reservationQueue.poll();
 						} catch (ParseException e1) {
 							e1.printStackTrace();
 						}
 					} else {
 						currentReservation.setReservationStatus("Moved to End");
+						reservationQueue.poll();
+						reservationQueue.add(currentReservation);
 					}
-					reservationQueue.poll();
-					reservationQueue.add(currentReservation);
 					String queueDetails = "";
 					for (Reservation res : reservationQueue) {
 						if (res.getReservationStatus() == null || res.getReservationStatus().length() == 0) {
