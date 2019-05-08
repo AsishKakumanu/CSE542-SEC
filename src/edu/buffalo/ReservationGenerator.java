@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.TimeZone;
 
 /**
- * This class generates random number of reservations using generateReservations menthod.
+ * This class generates random number of reservations using generateReservations method.
  * @author miki
  *
  */
@@ -24,8 +24,14 @@ public class ReservationGenerator {
 	
 
 	/**
-	 * This method generates random number of reservations in between 1 to 4.
-	 * @return
+	 * This methods generates random number of reservations between 0 to 4.
+	 * @param low parameter for lowest number of reservations to be generated.
+	 * @param high parameter for highest number of reservations to be generated.
+	 * @param shuffledQuestionList Question list shuffled.
+	 * @param shuffledTimeList Time list shuffled.
+	 * @param shuffledNameList Name list shuffled.
+	 * @param nameTable Table having student name as key and student email id as value.
+	 * @return Queue<Reservation>
 	 */
 	public Queue<Reservation> generateReservations(int low, int high, List<String> shuffledQuestionList,
 			List<String> shuffledTimeList, List<String> shuffledNameList, Hashtable<String, String> nameTable)

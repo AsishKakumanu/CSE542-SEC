@@ -1,7 +1,8 @@
 package edu.buffalo;
 
 /**
- * This class is a POJO class for reservation.
+ * This is a POJO class for reservation. The reservation class will have the following properties student, reservationId, 
+ * reservationTime and reservationStatus.
  * @author miki
  *
  */
@@ -11,6 +12,7 @@ public class Reservation {
 	private String reservationTime;
 	private String reservationStatus;
 	
+	//Constructor for reservation class.
 	public Reservation(int reservationId, String reservationTime, Student student)
 	{
 		this.reservationId = reservationId;
