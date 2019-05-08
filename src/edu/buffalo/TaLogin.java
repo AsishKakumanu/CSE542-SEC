@@ -123,7 +123,8 @@ public class TaLogin {
 	}
 
 	/**
-	 * This method takes in reservationQueue and populates the details based on the queue status.
+	 * This method takes in reservationQueue and populates the details based on the
+	 * queue status.
 	 * 
 	 * @param reservationQueue
 	 */
@@ -231,22 +232,17 @@ public class TaLogin {
 	 */
 	private String checkReservationQueue(Queue<Reservation> reservationQueue) {
 		String queueDetails = "";
-		if (reservationQueue.isEmpty()) {
-			displayEmptyQueue();
-		} else {
-			for (Reservation res : reservationQueue) {
-				if (res.getReservationStatus() == null || res.getReservationStatus().length() == 0) {
-					res.setReservationStatus("Status Not Set");
-				}
-				queueDetails += " \nReservation Id : " + res.getReservationId() + " \nStudent Name : "
-						+ res.getStudent().getStudentName() + " \nEmailId : " + res.getStudent().getStudentEmailId()
-						+ " \nQueries : " + res.getStudent().getStudentQueries() + " \nReservation Scheduled Time : "
-						+ res.getReservationTime() + " \nStatus : " + res.getReservationStatus()
-						+ " ------------------------------------------------------------------------------------"
-						+ " \n";
+		for (Reservation res : reservationQueue) {
+			if (res.getReservationStatus() == null || res.getReservationStatus().length() == 0) {
+				res.setReservationStatus("Status Not Set");
 			}
-
+			queueDetails += " \nReservation Id : " + res.getReservationId() + " \nStudent Name : "
+					+ res.getStudent().getStudentName() + " \nEmailId : " + res.getStudent().getStudentEmailId()
+					+ " \nQueries : " + res.getStudent().getStudentQueries() + " \nReservation Scheduled Time : "
+					+ res.getReservationTime() + " \nStatus : " + res.getReservationStatus()
+					+ " ------------------------------------------------------------------------------------" + " \n";
 		}
+
 		return queueDetails;
 	}
 
