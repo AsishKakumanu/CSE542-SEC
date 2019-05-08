@@ -147,7 +147,7 @@ public class TaLogin {
 	 * @param reservationQueue
 	 * @param mainFrame
 	 */
-	private void presentButton(Queue<Reservation> reservationQueue, JFrame mainFrame) {
+	public void presentButton(Queue<Reservation> reservationQueue, JFrame mainFrame) {
 		JButton presentButton = new JButton("Present");
 		presentButton.setFont(new Font("Verdana", Font.BOLD, 30));
 		presentButton.setForeground(Color.black);
@@ -181,7 +181,7 @@ public class TaLogin {
 	 * @param reservationQueue
 	 * @param mainFrame
 	 */
-	private void absentButton(Queue<Reservation> reservationQueue, JFrame mainFrame) {
+	public void absentButton(Queue<Reservation> reservationQueue, JFrame mainFrame) {
 		JButton absentButton = new JButton("Absent");
 		absentButton.setFont(new Font("Verdana", Font.BOLD, 30));
 		absentButton.setForeground(Color.black);
@@ -230,7 +230,7 @@ public class TaLogin {
 	 * @param reservationQueue
 	 * @return String
 	 */
-	private String checkReservationQueue(Queue<Reservation> reservationQueue) {
+	public String checkReservationQueue(Queue<Reservation> reservationQueue) {
 		String queueDetails = "";
 		for (Reservation res : reservationQueue) {
 			if (res.getReservationStatus() == null || res.getReservationStatus().length() == 0) {
@@ -330,7 +330,7 @@ public class TaLogin {
 	 * @param scheduledReservationTime
 	 * @return boolean
 	 */
-	private boolean checkReservationPassedTime(String scheduledReservationTime) {
+	public boolean checkReservationPassedTime(String scheduledReservationTime) {
 		final long ONE_MINUTE_IN_MILLIS = 60000;
 		Calendar cal = Calendar.getInstance();
 		Calendar newCal = Calendar.getInstance();
