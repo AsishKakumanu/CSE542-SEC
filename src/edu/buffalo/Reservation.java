@@ -7,6 +7,7 @@ package edu.buffalo;
  *
  */
 public class Reservation {
+	
 	private Student student;
 	private int reservationId;
 	private String reservationTime;
@@ -45,6 +46,27 @@ public class Reservation {
 	}
 	protected void setReservationStatus(String reservationStatus) {
 		this.reservationStatus = reservationStatus;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + reservationId;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reservation other = (Reservation) obj;
+		if (reservationId != other.reservationId)
+			return false;
+		return true;
 	}
 	
 }

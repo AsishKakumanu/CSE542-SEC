@@ -49,7 +49,7 @@ public class TaLogin {
 	};
 
 	// Questions
-	private static ArrayList<String> questionList = new ArrayList<String>() {
+	private static List<String> questionList = new ArrayList<String>() {
 		{
 			add("Where is Miki ?");
 			add("Where is Atrayee ?");
@@ -59,11 +59,11 @@ public class TaLogin {
 		}
 	};
 
-	private static ArrayList<String> finalTimeList = new ArrayList<String>() {
+	private static List<String> finalTimeList = new ArrayList<String>() {
 	};
 
 	// CurrentTime
-	private static ArrayList<Date> timeList = new ArrayList<Date>() {
+	private static List<Date> timeList = new ArrayList<Date>() {
 		{
 			Date date = new Date();
 			currentTime = String.valueOf(dateFormat.format(date));
@@ -100,7 +100,7 @@ public class TaLogin {
 		List<String> shuffledNameList;
 		shuffledQuestionList = getShuffledQuestionList(questionList);
 		shuffledTimeList = getShuffledTimeList(finalTimeList);
-		ArrayList keys = new ArrayList<>(nameTable.keySet());
+		List<String> keys = new ArrayList<String>(nameTable.keySet());
 		shuffledNameList = getShuffledNameList(keys);
 		reservationQueue = reservationGenerator.generateReservations(0, 5, shuffledQuestionList, shuffledTimeList,
 				shuffledNameList, nameTable);
@@ -198,20 +198,8 @@ public class TaLogin {
 				statusFrame.getContentPane().add(reservationQueueDetails);
 				Reservation currentReservation = reservationQueue.peek();
 				boolean isBanned = checkReservationPassedTime(currentReservation.getReservationTime());
-				if (isBanned) {
-					try {
-						currentReservation.getStudent().setBannedDate(dateFormat.parse(currentTime));
-						currentReservation.setReservationStatus("Student Banned on " + currentTime);
-						reservationQueue.poll();
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-				} else {
-					currentReservation.setReservationStatus("Moved to End");
-					reservationQueue.poll();
-					reservationQueue.add(currentReservation);
-				}
-				String queueDetails = checkReservationQueue(reservationQueue);
+				Queue<Reservation> updatedQueue = changeReservationStatus(currentReservation, isBanned, reservationQueue);
+				String queueDetails = checkReservationQueue(updatedQueue);
 				if (!queueDetails.isEmpty()) {
 					reservationQueueDetails.setText(queueDetails);
 					statusFrame.setVisible(true);
@@ -221,6 +209,23 @@ public class TaLogin {
 			}
 
 		});
+	}
+	
+	public Queue<Reservation> changeReservationStatus(Reservation currentReservation, boolean isBanned, Queue<Reservation> reservationQueue) {
+		if (isBanned) {
+			try {
+				currentReservation.getStudent().setBannedDate(dateFormat.parse(currentTime));
+				currentReservation.setReservationStatus("Student Banned on " + currentTime);
+				reservationQueue.poll();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		} else {
+			currentReservation.setReservationStatus("Moved to End");
+			reservationQueue.poll();
+			reservationQueue.add(currentReservation);
+		}
+		return reservationQueue;
 	}
 
 	/**
@@ -414,7 +419,7 @@ public class TaLogin {
 	 * @param questionList ArrayList of strings
 	 * @return Array List of strings
 	 */
-	private static List<String> getShuffledQuestionList(ArrayList<String> questionList) {
+	private static List<String> getShuffledQuestionList(List<String> questionList) {
 		Collections.shuffle(questionList);
 		return questionList;
 	}
@@ -425,7 +430,7 @@ public class TaLogin {
 	 * @param timeList ArrayList of strings
 	 * @return List<String>
 	 */
-	private static List<String> getShuffledTimeList(ArrayList<String> timeList) {
+	private static List<String> getShuffledTimeList(List<String> timeList) {
 		Collections.shuffle(timeList);
 		return timeList;
 	}
@@ -436,7 +441,7 @@ public class TaLogin {
 	 * @param keys Array List of strings
 	 * @return List<String>
 	 */
-	private static List<String> getShuffledNameList(ArrayList<String> keys) {
+	private static List<String> getShuffledNameList(List<String> keys) {
 		Collections.shuffle(keys);
 		return keys;
 	}
