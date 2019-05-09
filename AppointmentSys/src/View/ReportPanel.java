@@ -112,7 +112,7 @@ public class ReportPanel extends JPanel {
 		JButton btnAbsent = new JButton("Absent");
 		btnAbsent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				modelDataManager.absenceReport();
+				modelDataManager.absenceFinishReport();
 				//Absent code
 			}
 		});
@@ -121,6 +121,7 @@ public class ReportPanel extends JPanel {
 		this.add(btnAbsent);
 		
 		JButton btnAbsentfinish = new JButton("Absent&Finish");
+		btnAbsentfinish.setVisible(false);
 		btnAbsentfinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				modelDataManager.absenceFinishReport();

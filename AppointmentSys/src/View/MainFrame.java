@@ -40,7 +40,8 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();				
+					MainFrame frame = new MainFrame();	
+					frame.init();
 					
 //					frame.reportJPanel.viewUpdate(frame.appointQueue.getNextAppointment());
 					frame.setVisible(true);
@@ -76,7 +77,10 @@ public class MainFrame extends JFrame {
         queDisplayPanel  = new QueDisplayPanel(modelDataManager);
         mainJPanel.add("queue",queDisplayPanel);
 //        c.show(mainJPanel,"TAreport");
-        modelDataManager.init();
+//        modelDataManager.init();
+	}
+	public void init() {
+		modelDataManager.init();
 	}
 	public void TAreportShow(Appointment data) {
 		reportJPanel.viewUpdate(data);
@@ -85,5 +89,13 @@ public class MainFrame extends JFrame {
 	public void queueShow(String[][] data) {
 		queDisplayPanel.viewUpdate(data);
 		c.show(mainJPanel,"queue");
+	}
+
+	public ModelDataManager getModelDataManager() {
+		return modelDataManager;
+	}
+
+	public void setModelDataManager(ModelDataManager modelDataManager) {
+		this.modelDataManager = modelDataManager;
 	}
 }

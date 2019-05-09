@@ -7,18 +7,17 @@ import View.MainFrame;
 
 public class ModelDataManager {
 	private MainFrame frame;
-	AppointQueue appointQueue;
-	Appointment currentAppointment;
+	private AppointQueue appointQueue;
+	private Appointment currentAppointment;
 	public ModelDataManager() {
 		
 	}
 	public ModelDataManager(MainFrame frame) {
-		appointQueue = new AppointQueue(5);
-		this.frame = frame;
-		
+		this.frame = frame;		
 	}
 	public void init()
 	{
+		appointQueue = new AppointQueue(5);
 		currentAppointment = appointQueue.getNextAppointment();
 		if(currentAppointment==null)
 			frame.queueShow(appointQueue.toStringArray());
@@ -56,4 +55,16 @@ public class ModelDataManager {
     	else
     		return banList;
     }
+	public AppointQueue getAppointQueue() {
+		return appointQueue;
+	}
+	public void setAppointQueue(AppointQueue appointQueue) {
+		this.appointQueue = appointQueue;
+	}
+	public Appointment getCurrentAppointment() {
+		return currentAppointment;
+	}
+	public void setCurrentAppointment(Appointment currentAppointment) {
+		this.currentAppointment = currentAppointment;
+	}
 }
