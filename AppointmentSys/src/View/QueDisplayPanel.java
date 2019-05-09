@@ -1,9 +1,11 @@
-package Common;
+package View;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import Model.ModelDataManager;
 
 import java.awt.Font;
 import javax.swing.JScrollPane;
@@ -53,6 +55,7 @@ public class QueDisplayPanel extends JPanel {
 		add(QueLengthLabel);
 		
 		banListTextArea = new JTextArea();
+		banListTextArea.setEditable(false);
 		banListTextArea.setFont(new Font("Arial", Font.PLAIN, 20));
 		banListTextArea.setBounds(45, 402, 700, 80);
 		add(banListTextArea);

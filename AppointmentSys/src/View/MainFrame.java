@@ -1,4 +1,4 @@
-package Common;
+package View;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -18,6 +18,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+
+import Common.Appointment;
+import Model.ModelDataManager;
 
 
 public class MainFrame extends JFrame {

@@ -1,4 +1,4 @@
-package Common;
+package Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
+
+import Common.Appointment;
+import Common.BannedRecord;
 
 public class AppointQueue {
 	private Queue<Appointment> queue;
@@ -90,21 +93,18 @@ public class AppointQueue {
 				break;
 			}
 			queue.offer(newAppointment);
-		}
-		
-				
-	}
-	
-	
+		}				
+	}	
 
-	private int getRandomNum(int max)	{
-		
-		
+	private int getRandomNum(int max)	{		
+		if (max == 0)
+			return 0;
 		int n = ran.nextInt()%(max+1);
 		if(n<0)
 			n=-n;
 		return n;
 	}
+	
 	public Appointment getNextAppointment() {
 		if(queue.isEmpty()) {
 			System.out.println("null");			
@@ -117,6 +117,7 @@ public class AppointQueue {
 		processingAppointment.add(firstAppointment);
 		return firstAppointment;
 	}
+	
 	public int absenceHandle(int ID) {
 		if(processingAppointment.isEmpty())
 			return 1;
@@ -140,6 +141,7 @@ public class AppointQueue {
 		return 2;// can't find the corresponding Appointment by ID 
 		
 	}
+
 	public int presentHandle(int ID) {
 		if(processingAppointment.isEmpty())
 			return 1;	//no processing Appointment	
@@ -152,12 +154,15 @@ public class AppointQueue {
 		return 2; // can't find the corresponding Appointment by ID 
 		
 	}
+	
 	public List <BannedRecord> getBanList() {
 		return banList;
 	}
+	
 	public void setBanList(List <BannedRecord> banList) {
 		this.banList = banList;
 	}
+	
 	public String[][] toStringArray(){
 		if(queue.isEmpty()) {
 			System.out.println("queue empty");
@@ -179,6 +184,7 @@ public class AppointQueue {
 		System.out.println("queue "+queueData.length);
 		return queueData;
 	}
+	
 	public String getBanListString(){
 		if(banList.isEmpty()) {
 			System.out.println("queue banlist");

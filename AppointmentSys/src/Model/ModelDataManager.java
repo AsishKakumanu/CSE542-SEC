@@ -1,6 +1,9 @@
-package Common;
+package Model;
 
 import java.util.List;
+
+import Common.Appointment;
+import View.MainFrame;
 
 public class ModelDataManager {
 	private MainFrame frame;

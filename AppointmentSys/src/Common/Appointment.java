@@ -34,7 +34,7 @@ public class Appointment {
 	Appointment(){
 		
 	}
-	Appointment(int ID,Date date, String email, String name, String question){
+	public Appointment(int ID,Date date, String email, String name, String question){
 		this.setID(ID);
 		this.date = date;
 		this.email = email;
