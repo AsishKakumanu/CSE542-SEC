@@ -33,12 +33,12 @@ import javax.swing.JTextPane;
  */
 public class TaLogin {
 
-	static Queue<Reservation> reservationQueue;
-	static String currentTime;
-	static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	private Queue<Reservation> reservationQueue;
+	private String currentTime;
+	private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	// Names & email
-	private static Hashtable<String, String> nameTable = new Hashtable<String, String>() {
+	private Hashtable<String, String> nameTable = new Hashtable<String, String>() {
 		{
 			put("Miki Padhiary", "mpadh@buffalo.edu");
 			put("Atrayee Nag", "anag@buffalo.edu");
@@ -49,7 +49,7 @@ public class TaLogin {
 	};
 
 	// Questions
-	private static List<String> questionList = new ArrayList<String>() {
+	private List<String> questionList = new ArrayList<String>() {
 		{
 			add("Where is Miki ?");
 			add("Where is Atrayee ?");
@@ -59,11 +59,11 @@ public class TaLogin {
 		}
 	};
 
-	private static List<String> finalTimeList = new ArrayList<String>() {
+	private List<String> finalTimeList = new ArrayList<String>() {
 	};
 
 	// CurrentTime
-	private static List<Date> timeList = new ArrayList<Date>() {
+	private List<Date> timeList = new ArrayList<Date>() {
 		{
 			Date date = new Date();
 			currentTime = String.valueOf(dateFormat.format(date));
@@ -74,21 +74,6 @@ public class TaLogin {
 			getTime(10);
 		}
 	};
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new TaLogin();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Constructor of TaLogin Class.
@@ -198,7 +183,8 @@ public class TaLogin {
 				statusFrame.getContentPane().add(reservationQueueDetails);
 				Reservation currentReservation = reservationQueue.peek();
 				boolean isBanned = checkReservationPassedTime(currentReservation.getReservationTime());
-				Queue<Reservation> updatedQueue = changeReservationStatus(currentReservation, isBanned, reservationQueue);
+				Queue<Reservation> updatedQueue = changeReservationStatus(currentReservation, isBanned,
+						reservationQueue);
 				String queueDetails = checkReservationQueue(updatedQueue);
 				if (!queueDetails.isEmpty()) {
 					reservationQueueDetails.setText(queueDetails);
@@ -210,8 +196,9 @@ public class TaLogin {
 
 		});
 	}
-	
-	public Queue<Reservation> changeReservationStatus(Reservation currentReservation, boolean isBanned, Queue<Reservation> reservationQueue) {
+
+	public Queue<Reservation> changeReservationStatus(Reservation currentReservation, boolean isBanned,
+			Queue<Reservation> reservationQueue) {
 		if (isBanned) {
 			try {
 				currentReservation.getStudent().setBannedDate(dateFormat.parse(currentTime));
@@ -454,7 +441,7 @@ public class TaLogin {
 	 * @param minutes number of minutes.
 	 * @return String
 	 */
-	private static String getTime(int minutes) {
+	private String getTime(int minutes) {
 		final long ONE_MINUTE_IN_MILLIS = 60000;
 		Calendar cal = Calendar.getInstance();
 		try {
