@@ -405,12 +405,13 @@ public class TaLogin {
 	 * @param mainFrame  Original frame created.
 	 * @param portalName String used for displaying the gui window name.
 	 */
-	private void initializeLabel(JFrame mainFrame, String portalName) {
+	private boolean initializeLabel(JFrame mainFrame, String portalName) {
 		JLabel taLabel = new JLabel(portalName);
 		taLabel.setFont(new Font("Verdana", Font.BOLD, 30));
 		taLabel.setForeground(Color.white);
 		taLabel.setBounds(500, 20, 500, 100);
 		mainFrame.getContentPane().add(taLabel);
+		return true;
 	}
 
 	/**

@@ -1,22 +1,14 @@
 package edu.buffalo;
 
 
-import static org.junit.Assert.*;
-
-import java.text.ParseException;
+import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Hashtable;
-import java.util.*;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 import org.junit.Test;
-
-import edu.buffalo.Reservation;
-import edu.buffalo.ReservationGenerator;
-import edu.buffalo.Student;
 
 public class ReservationTest {
 
