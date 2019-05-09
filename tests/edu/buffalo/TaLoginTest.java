@@ -13,8 +13,6 @@ import org.junit.Test;
 public class TaLoginTest {
 	
 	TaLogin taLogin = new TaLogin();
-	Container container = new Container();
-	JFrame mainFrame = new JFrame();
 	Queue<Reservation> reservationQueue = new LinkedList<Reservation>();
 	
 	Student stud1 = new Student("Atrayee", "atrayeen@buffalo.edu", null, "Where is Atrayee");
