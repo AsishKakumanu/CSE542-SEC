@@ -442,7 +442,7 @@ public class TaLogin {
 	 * @param minutes number of minutes.
 	 * @return String
 	 */
-	private String getTime(int minutes) {
+	public String getTime(int minutes) {
 		final long ONE_MINUTE_IN_MILLIS = 60000;
 		Calendar cal = Calendar.getInstance();
 		try {

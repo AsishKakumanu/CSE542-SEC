@@ -13,8 +13,7 @@ import org.junit.Test;
 public class TaLoginTest {
 	
 	TaLogin taLogin = new TaLogin();
-	Queue<Reservation> reservationQueue = new LinkedList<Reservation>();
-	
+	Queue<Reservation> reservationQueue = new LinkedList<Reservation>();	
 	Student stud1 = new Student("Atrayee", "atrayeen@buffalo.edu", null, "Where is Atrayee");
 	Student stud2 = new Student("Miki", "miki@buffalo.edu", null, "Where is Miki");
 	Student stud3 = new Student("Asish", "asish@buffalo.edu", null, "Where is Asish");
@@ -27,28 +26,53 @@ public class TaLoginTest {
 	Reservation res4 = new Reservation(4, "05/06/2019 14:50:58", stud4);
 	Reservation res5 = new Reservation(5, "05/06/2019 15:10:58", stud5);
 	
+//	@Test
+//	//Check if correct time is returned
+//	public void testCheckTimeReturned() throws Exception {		
+//		String expectedTime = " ";
+//		String actualTime = taLogin.getTime(10);
+//		assertEquals(actualTime, expectedTime);		
+//	}
+	
 	@Test
-	public void testCheckIfStudentIsBanned() {		
-		String scheduledReservationTime = "05/06/2019 14:20:58";
+	//Check if student is banned if exactly 10 minutes has passed
+	public void testCheckIfStudentIsBannedInTenMinutes() throws Exception {		
+		String scheduledReservationTime = taLogin.getTime(10);
 		boolean isBanned = taLogin.checkReservationPassedTime(scheduledReservationTime);
 		assertEquals(true, isBanned);		
 	}
 	
 	@Test
-	public void testCheckQueueDetailsWhenQueueIsEmpty() {
+	//Check if student is banned if more than 10 minutes has passed
+	public void testCheckIfStudentIsBannedAfterTenMinutes() throws Exception {		
+		String scheduledReservationTime = taLogin.getTime(11);
+		boolean isBanned = taLogin.checkReservationPassedTime(scheduledReservationTime);
+		assertEquals(true, isBanned);		
+	}
+	
+	@Test
+	//Check if student is not banned if less than 10 minutes has passed
+	public void testCheckIfStudentIsNotBanned() throws Exception {		
+		String scheduledReservationTime = taLogin.getTime(9);
+		boolean isBanned = taLogin.checkReservationPassedTime(scheduledReservationTime);
+		assertEquals(false, isBanned);		
+	}
+	
+	@Test
+	public void testCheckQueueDetailsWhenQueueIsEmpty() throws Exception{
 		String queueDetails = taLogin.checkReservationQueue(reservationQueue);
 		assertTrue(queueDetails.isEmpty());		
 	}
 	
 	@Test
-	public void testCheckQueueDetailsWhenQueueIsNotEmpty() {
+	public void testCheckQueueDetailsWhenQueueIsNotEmpty() throws Exception{
 		reservationQueue.add(res1);
 		String result = taLogin.checkReservationQueue(reservationQueue);
 		assertFalse(result.isEmpty());		
 	}
 	
 	@Test
-	public void testRemoveReservationWhenStudentIsBanned() {		
+	public void testRemoveReservationWhenStudentIsBanned() throws Exception{		
 		reservationQueue.add(res1);
 		reservationQueue.add(res2);
 		reservationQueue.add(res3);
@@ -59,7 +83,7 @@ public class TaLoginTest {
 	}
 	
 	@Test
-	public void testMoveToEndOfQueueWhenAbsent() {		
+	public void testMoveToEndOfQueueWhenAbsent() throws Exception{		
 		reservationQueue.add(res1);
 		reservationQueue.add(res2);
 		reservationQueue.add(res3);
@@ -70,13 +94,13 @@ public class TaLoginTest {
 	}
 	
 	@Test
-	public void testInitializeFrame() {		
+	public void testInitializeFrame() throws Exception{		
 		JFrame intializeFrameSuccess = taLogin.initializeFrame("Test");	
 		assertNotNull(intializeFrameSuccess);
 	}
 	
 	@Test
-	public void testInitializeLabel() {		
+	public void testInitializeLabel() throws Exception {		
 		JFrame intializeFrameSuccess = taLogin.initializeFrame("Test");
 		boolean intializeLabelSuccess = taLogin.initializeLabel(intializeFrameSuccess, "Check Label");
 		assertEquals(intializeLabelSuccess, true);
