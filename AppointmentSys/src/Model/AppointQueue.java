@@ -198,5 +198,11 @@ public class AppointQueue {
 			}
 		return banListString;
 	}
+	public Queue<Appointment> getQueue() {
+		return queue;
+	}
+	public void setQueue(Queue<Appointment> queue) {
+		this.queue = queue;
+	}
 
 }
