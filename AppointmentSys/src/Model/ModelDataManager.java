@@ -16,6 +16,10 @@ public class ModelDataManager {
 	public ModelDataManager() {
 		
 	}
+	/**
+	 * @param frame
+	 * Create the ModelDataManager blind with a frame
+	 */
 	public ModelDataManager(MainFrame frame) {
 		this.frame = frame;		
 	}
@@ -28,12 +32,21 @@ public class ModelDataManager {
 		else
 			frame.TAreportShow(currentAppointment);
 	}
+	
+	/**
+	 * @return the response code for the report
+	 * support a interface for panel present button action to call
+	 */
 	public int presentReport() {
 		int response = appointQueue.presentHandle(currentAppointment.getID());
 		if(response == 0)
 			frame.queueShow(appointQueue.toStringArray());
 		return response;
 	}
+	/**
+	 * @return the response code for the report
+	 * support a interface for panel absent button action to call
+	 */
     public int absenceReport() {
     	int response = appointQueue.absenceHandle(currentAppointment.getID());
     	if(response == 0) {
@@ -45,6 +58,10 @@ public class ModelDataManager {
     	}    		
 		return response;		
 	}
+    /**
+	 * @return the response code for the report
+	 * support a interface for panel absent button action to call
+	 */
     public int absenceFinishReport() {
     	int response = appointQueue.absenceHandle(currentAppointment.getID());
     	if(response == 0)
@@ -52,6 +69,10 @@ public class ModelDataManager {
 		return response;
 		
 	}
+    /**
+     * @return banlist content in String
+     * get the banlist content from AppointQueue
+     */
     public String getBanList() {
     	String banList = appointQueue.getBanListString();
     	if(banList == null)
@@ -59,16 +80,20 @@ public class ModelDataManager {
     	else
     		return banList;
     }
+    
+	/**
+	 * @return AppointQueue
+	 *  get AppointQueue for test
+	 */
 	public AppointQueue getAppointQueue() {
 		return appointQueue;
 	}
-	public void setAppointQueue(AppointQueue appointQueue) {
-		this.appointQueue = appointQueue;
-	}
+	/**
+	 * @return currentAppointment
+	 *  get CurrentAppointment for test
+	 */
 	public Appointment getCurrentAppointment() {
 		return currentAppointment;
 	}
-	public void setCurrentAppointment(Appointment currentAppointment) {
-		this.currentAppointment = currentAppointment;
-	}
+	
 }

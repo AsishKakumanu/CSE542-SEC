@@ -33,7 +33,7 @@ public class AppointQueue {
 	
     /**
      * @param maxLen 
-     * generate a appointment queue which size between 0 to maxLen from Some hard coded data just for test.     * 
+     * generate a appointment queue which size between 0 to maxLen from Some hard coded data just for test. 
      */
     AppointQueue(int maxLen){
     	// Names & email
@@ -141,10 +141,7 @@ public class AppointQueue {
 	/**
 	 * @param ID
 	 * @return response code for process result
-	 * dispose the absence action on data  
-	 * will remove the appointment of ID from the processing list 
-	 * if late in 10min that appointment will be re-add to queue tail
-	 * else it will add a new ban record of the email of the appoint along with the time at present 
+	 * Handle the absent action request from ModelManager
 	 */
 	public int absenceHandle(int ID) {
 		if(processingAppointment.isEmpty())
@@ -173,8 +170,7 @@ public class AppointQueue {
 	/**
 	 * @param ID
 	 * @return response code for process result
-	 * dispose the present action on data  
-	 * will remove the appointment of ID from the processing list
+	 * Handle the present action request from ModelManager
 	 */
 	public int presentHandle(int ID) {
 		if(processingAppointment.isEmpty())

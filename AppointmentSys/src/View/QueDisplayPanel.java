@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
  * @author wyj19
  * Display the queue status and the ban list content
  */
+
 public class QueDisplayPanel extends JPanel {
 	private JTable table;
 	private String[] columnNames = {"ID","   Name   ","   E-mail   ","   Time   ","   Question   "};
@@ -79,10 +80,19 @@ public class QueDisplayPanel extends JPanel {
 		add(lblQueueContext);
 		
 	}
+	/**
+	 * @param m
+	 * Create the panel blind with a ModelDataManager
+	 */
 	public QueDisplayPanel(ModelDataManager m) {
 		this();
 		this.modelDataManager = m;		
 	}
+	
+	/**
+	 * @param data
+	 * @return status of the update operation success or not
+	 */
 	public boolean viewUpdate(String[][] data) {
 		if(data == null)
 		{
@@ -104,7 +114,12 @@ public class QueDisplayPanel extends JPanel {
 		
 		return true;
 	}
+	
 	//cite from https://blog.csdn.net/tototuzuoquan/article/details/8982618
+	/**
+	 * @param myTable
+	 * Using to set a decent format of table
+	 */
 	public void FitTableColumns(JTable myTable) {             
         JTableHeader header = myTable.getTableHeader();
         int rowCount = myTable.getRowCount();

@@ -135,10 +135,20 @@ public class ReportPanel extends JPanel {
 		btnAbsentfinish.setBounds(605, 430, 150, 60);
 		add(btnAbsentfinish);
 	}
+	/**
+	 * @param m
+	 * Create the panel blind with a ModelDataManager
+	 */
 	public ReportPanel(ModelDataManager m) {
 		this();
 		this.modelDataManager = m;		
 	}
+	
+	/**
+	 * @param data
+	 * @return status of the update operation success or not
+	 * Provide a interface for update the panel from the date furnished by model manager
+	 */
 	public Boolean viewUpdate(Appointment data) {
 //		data.getID();
 		String a = data.getName();
