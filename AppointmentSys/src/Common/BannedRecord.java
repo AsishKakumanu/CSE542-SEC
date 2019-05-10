@@ -2,6 +2,10 @@ package Common;
 
 import java.util.Date;
 
+/**
+ * @author wyj19
+ * store Banned Record: Email and date
+ */
 public class BannedRecord {
 	private Date date;
 	private String email;

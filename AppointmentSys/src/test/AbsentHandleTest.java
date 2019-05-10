@@ -20,7 +20,7 @@ import View.MainFrame;
 
 /**
  * @author wyj19
- *
+ * jUnit test for absent handling function
  */
 class AbsentHandleTest {
 

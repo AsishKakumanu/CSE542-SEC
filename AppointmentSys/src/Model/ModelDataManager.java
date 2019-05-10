@@ -5,6 +5,10 @@ import java.util.List;
 import Common.Appointment;
 import View.MainFrame;
 
+/**
+ * @author wyj19
+ * Connect the model and view by provide data for view update,  view page jumping and provide Model operation interface for view action 
+ */
 public class ModelDataManager {
 	private MainFrame frame;
 	private AppointQueue appointQueue;

@@ -23,6 +23,10 @@ import Common.Appointment;
 import Model.ModelDataManager;
 
 
+/**
+ * @author wyj19
+ * provide main frame and runtime interface 
+ */
 public class MainFrame extends JFrame {
 
 

@@ -13,6 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 
+/**
+ * @author wyj19
+ * Display the queue status and the ban list content
+ */
 public class QueDisplayPanel extends JPanel {
 	private JTable table;
 	private String[] columnNames = {"ID","Name","E-mail","Time","Question"};
@@ -51,7 +55,7 @@ public class QueDisplayPanel extends JPanel {
 		
 		QueLengthLabel = new JLabel("5");
 		QueLengthLabel.setFont(new Font("Arial", Font.BOLD, 25));
-		QueLengthLabel.setBounds(300, 50, 100, 50);
+		QueLengthLabel.setBounds(300, 50, 305, 50);
 		add(QueLengthLabel);
 		
 		banListTextArea = new JTextArea();
@@ -78,7 +82,7 @@ public class QueDisplayPanel extends JPanel {
 	public boolean viewUpdate(String[][] data) {
 		if(data == null)
 		{
-			QueLengthLabel.setText("0");
+			QueLengthLabel.setText("0(Empty Queue)");
 		}else {
 			QueLengthLabel.setText(""+data.length);
 		}

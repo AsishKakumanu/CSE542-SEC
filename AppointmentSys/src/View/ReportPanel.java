@@ -18,6 +18,10 @@ import javax.swing.SwingConstants;
 import Common.Appointment;
 import Model.ModelDataManager;
 
+/**
+ * @author wyj19
+ * Display the detail information of processing appointment and provide report button
+ */
 public class ReportPanel extends JPanel {
 
 	/**

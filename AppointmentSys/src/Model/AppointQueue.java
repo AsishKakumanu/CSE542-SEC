@@ -10,6 +10,11 @@ import java.util.Random;
 
 import Common.Appointment;
 import Common.BannedRecord;
+/**
+ * @author wyj19
+ * Using as the Model class for queue provide operation for queue and BanList and processingAppointmentList
+ * provide function of generate data and process data
+ */
 
 public class AppointQueue {
 	private Queue<Appointment> queue;
@@ -24,6 +29,11 @@ public class AppointQueue {
 		queue = new LinkedList<Appointment>();
 
 	}
+	
+    /**
+     * @param maxLen 
+     * generate a appointment queue which size between 0 to maxLen from Some hard coded data just for test.     * 
+     */
     AppointQueue(int maxLen){
     	// Names & email
     	this();
@@ -66,7 +76,7 @@ public class AppointQueue {
             String email = nameTable.get(keys.get(i));
             String question = questionList.get(i).toString();
             Appointment newAppointment = new Appointment(i,d,email,name,question);
-            
+            //random generate the time among 0,5,11 minutes late
 			int lateDate = getRandomNum(2);
 			switch(lateDate) {
 			case 0:
@@ -83,6 +93,7 @@ public class AppointQueue {
 				
 			}
 			System.out.println("date new "+newAppointment.getDate());
+			//random generate the blank or non-blank question
 			int blankQuestion = getRandomNum(1);
 			switch(blankQuestion) {
 			case 0:
@@ -95,7 +106,11 @@ public class AppointQueue {
 			queue.offer(newAppointment);
 		}				
 	}	
-
+    
+	/**
+	 * @param max
+	 * @return random number from 0 to max
+	 */
 	private int getRandomNum(int max)	{		
 		if (max == 0)
 			return 0;
@@ -105,6 +120,10 @@ public class AppointQueue {
 		return n;
 	}
 	
+	/**
+	 * @return the next Appointment
+	 * remove the queue head and store the appointment to processing list and return it for further process
+	 */
 	public Appointment getNextAppointment() {
 		if(queue.isEmpty()) {
 			System.out.println("null");			
@@ -118,6 +137,14 @@ public class AppointQueue {
 		return firstAppointment;
 	}
 	
+	/**
+	 * @param ID
+	 * @return response code for process result
+	 * dispose the absence action on data  
+	 * will remove the appointment of ID from the processing list 
+	 * if late in 10min that appointment will be re-add to queue tail
+	 * else it will add a new ban record of the email of the appoint along with the time at present 
+	 */
 	public int absenceHandle(int ID) {
 		if(processingAppointment.isEmpty())
 			return 1;
@@ -142,6 +169,12 @@ public class AppointQueue {
 		
 	}
 
+	/**
+	 * @param ID
+	 * @return response code for process result
+	 * dispose the present action on data  
+	 * will remove the appointment of ID from the processing list
+	 */
 	public int presentHandle(int ID) {
 		if(processingAppointment.isEmpty())
 			return 1;	//no processing Appointment	
@@ -163,6 +196,9 @@ public class AppointQueue {
 		this.banList = banList;
 	}
 	
+	/**
+	 * @return the 2-D String array of the queue for table model to display the queue on GUI
+	 */
 	public String[][] toStringArray(){
 		if(queue.isEmpty()) {
 			System.out.println("queue empty");
@@ -185,6 +221,9 @@ public class AppointQueue {
 		return queueData;
 	}
 	
+	/**
+	 * @return String of BanList content display the ban record on GUI
+	 */
 	public String getBanListString(){
 		if(banList.isEmpty()) {
 			System.out.println("queue banlist");

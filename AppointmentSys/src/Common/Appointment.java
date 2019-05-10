@@ -1,6 +1,10 @@
 package Common;
 import java.util.Date;
 
+/**
+ * @author wyj19
+ * Store Appointment information  
+ */
 public class Appointment {
 	private int ID;
 	private Date date;
