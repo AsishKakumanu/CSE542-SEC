@@ -27,87 +27,129 @@ public class ReservationHandlerTest {
 	Reservation res4 = new Reservation(4, "05/06/2019 14:50:58", stud4);
 	Reservation res5 = new Reservation(5, "05/06/2019 15:10:58", stud5);
 	
+	
+	/* Check if correct time is returned before the given time. */
 	@Test
-	//Check if correct time is returned before the given time
-	public void testTimeReturnedBefore() throws Exception {		
+	public void testTimeReturnedBefore() throws Exception {	
+		
 		String oldTime = "05/06/2019 15:20:58";
+		
 		String actualTime = handler.getTime(10,oldTime);
+		
 		assertEquals(actualTime, "05/06/2019 15:10:58");		
 	}
 	
+	
+	/* Check if correct time is returned before the given time. */
 	@Test
-	//Check if correct time is returned after the give time
-	public void testTimeReturnedAfter() throws Exception {		
+	public void testTimeReturnedAfter() throws Exception {	
+		
 		String oldTime = "05/06/2019 15:20:58";
+		
 		String actualTime = handler.getTime(5,oldTime);
+		
 		assertEquals(actualTime, "05/06/2019 15:15:58");		
 	}
 	
+	
+	/*Check if student is banned if exactly 10 minutes has passed. */
 	@Test
-	//Check if student is banned if exactly 10 minutes has passed
 	public void testCheckIfStudentIsBannedInTenMinutes() throws Exception {	
+		
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Date date = new Date();
 		String currentTime = String.valueOf(dateFormat.format(date));
+		
 		String scheduledReservationTime = handler.getTime(10, currentTime);
+		
 		boolean isBanned = handler.checkReservationPassedTime(scheduledReservationTime);
+		
 		assertEquals(true, isBanned);		
 	}
 	
+	
+	/*Check if student is banned if more than 10 minutes has passed. */
 	@Test
-	//Check if student is banned if more than 10 minutes has passed
-	public void testCheckIfStudentIsBannedAfterTenMinutes() throws Exception {		
+	
+	public void testCheckIfStudentIsBannedAfterTenMinutes() throws Exception {	
+		
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Date date = new Date();
 		String currentTime = String.valueOf(dateFormat.format(date));
+		
 		String scheduledReservationTime = handler.getTime(11, currentTime);
+		
 		boolean isBanned = handler.checkReservationPassedTime(scheduledReservationTime);
+		
 		assertEquals(true, isBanned);		
 	}
 	
+	/*Check if student is not banned if less than 10 minutes has passed. */
 	@Test
-	//Check if student is not banned if less than 10 minutes has passed
-	public void testCheckIfStudentIsNotBanned() throws Exception {		
+	
+	public void testCheckIfStudentIsNotBanned() throws Exception {	
+		
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Date date = new Date();
 		String currentTime = String.valueOf(dateFormat.format(date));
+		
 		String scheduledReservationTime = handler.getTime(9, currentTime);
+		
 		boolean isBanned = handler.checkReservationPassedTime(scheduledReservationTime);
+		
 		assertEquals(false, isBanned);		
 	}
 	
+	
+	/* Check if queue-details is empty when queue is empty. */
 	@Test
 	public void testCheckQueueDetailsWhenQueueIsEmpty() throws Exception{
+		
 		String queueDetails = handler.checkReservationQueue(reservationQueue);
+		
 		assertTrue(queueDetails.isEmpty());		
 	}
 	
+	
+	/* Check if queue-details is empty when queue has elements. */
 	@Test
 	public void testCheckQueueDetailsWhenQueueIsNotEmpty() throws Exception{
+		
 		reservationQueue.add(res1);
+		
 		String result = handler.checkReservationQueue(reservationQueue);
+		
 		assertFalse(result.isEmpty());		
 	}
 	
+	
+	/* Check if reservation is removed from queue when student is banned. */
 	@Test
-	public void testRemoveReservationWhenStudentIsBanned() throws Exception{		
+	public void testRemoveReservationWhenStudentIsBanned() throws Exception{
+		
 		reservationQueue.add(res1);
 		reservationQueue.add(res2);
 		reservationQueue.add(res3);
 		reservationQueue.add(res4);
 		reservationQueue.add(res5);		
-		Queue<Reservation> updatedQueue = handler.changeReservationStatus(res1, true, reservationQueue);		
+		
+		Queue<Reservation> updatedQueue = handler.changeReservationStatus(res1, true, reservationQueue);
+		
 		assertFalse(updatedQueue.contains(res1));
 	}
 	
+	/* Check if reservation is moved to end of queue when student is absent. */
 	@Test
-	public void testMoveToEndOfQueueWhenAbsent() throws Exception{		
+	public void testMoveToEndOfQueueWhenAbsent() throws Exception{	
+		
 		reservationQueue.add(res1);
 		reservationQueue.add(res2);
 		reservationQueue.add(res3);
 		reservationQueue.add(res4);
 		reservationQueue.add(res5);		
-		Queue<Reservation> updatedQueue = handler.changeReservationStatus(res1, false, reservationQueue);		
+		
+		Queue<Reservation> updatedQueue = handler.changeReservationStatus(res1, false, reservationQueue);
+		
 		assertEquals(updatedQueue.peek(), res2);
 	}
 	
