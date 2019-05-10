@@ -30,7 +30,7 @@ public class ReservationHandlerTest {
 	
 	/* Check if correct time is returned before 10 minutes of the given time. */
 	@Test
-	public void testTimeReturnedBefore() throws Exception {	
+	public void testTimeReturnedBeforeTenMin() throws Exception {	
 		
 		String oldTime = "05/06/2019 15:20:58";
 		
@@ -42,7 +42,7 @@ public class ReservationHandlerTest {
 	
 	/* Check if correct time is returned before 5 minutes of the given time. */
 	@Test
-	public void testTimeReturnedAfter() throws Exception {	
+	public void testTimeReturnedBeforeFiveMin() throws Exception {	
 		
 		String oldTime = "05/06/2019 15:20:58";
 		
@@ -54,23 +54,23 @@ public class ReservationHandlerTest {
 	
 	/*Check if student is banned if exactly 10 minutes has passed. */
 	@Test
-	public void testCheckIfStudentIsBannedInTenMinutes() throws Exception {	
+	public void testCheckIfStudentNotBannedInExactlyTenMin() throws Exception {	
 		
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Date date = new Date();
 		String currentTime = String.valueOf(dateFormat.format(date));
 		
-		String scheduledReservationTime = handler.getTime(10, currentTime);
+		String scheduledReservationTime = handler.getTime(6, currentTime);
 		
 		boolean isBanned = handler.checkReservationPassedTime(scheduledReservationTime);
 		
-		assertEquals(true, isBanned);		
+		assertFalse(isBanned);		
 	}
 	
 	
 	/*Check if student is banned if more than 10 minutes has passed. */
 	@Test	
-	public void testCheckIfStudentIsBannedAfterTenMinutes() throws Exception {	
+	public void testCheckIfStudentIsBannedAfterTenMin() throws Exception {	
 		
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Date date = new Date();
@@ -80,7 +80,7 @@ public class ReservationHandlerTest {
 		
 		boolean isBanned = handler.checkReservationPassedTime(scheduledReservationTime);
 		
-		assertEquals(true, isBanned);		
+		assertTrue(isBanned);		
 	}
 	
 	/*Check if student is not banned if less than 10 minutes has passed. */
@@ -95,7 +95,7 @@ public class ReservationHandlerTest {
 		
 		boolean isBanned = handler.checkReservationPassedTime(scheduledReservationTime);
 		
-		assertEquals(false, isBanned);		
+		assertFalse(isBanned);		
 	}
 	
 	
