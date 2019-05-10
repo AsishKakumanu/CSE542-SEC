@@ -28,7 +28,7 @@ public class ReservationHandlerTest {
 	Reservation res5 = new Reservation(5, "05/06/2019 15:10:58", stud5);
 	
 	
-	/* Check if correct time is returned before the given time. */
+	/* Check if correct time is returned before 10 minutes of the given time. */
 	@Test
 	public void testTimeReturnedBefore() throws Exception {	
 		
@@ -40,7 +40,7 @@ public class ReservationHandlerTest {
 	}
 	
 	
-	/* Check if correct time is returned before the given time. */
+	/* Check if correct time is returned before 5 minutes of the given time. */
 	@Test
 	public void testTimeReturnedAfter() throws Exception {	
 		
@@ -69,8 +69,7 @@ public class ReservationHandlerTest {
 	
 	
 	/*Check if student is banned if more than 10 minutes has passed. */
-	@Test
-	
+	@Test	
 	public void testCheckIfStudentIsBannedAfterTenMinutes() throws Exception {	
 		
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -85,8 +84,7 @@ public class ReservationHandlerTest {
 	}
 	
 	/*Check if student is not banned if less than 10 minutes has passed. */
-	@Test
-	
+	@Test	
 	public void testCheckIfStudentIsNotBanned() throws Exception {	
 		
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
