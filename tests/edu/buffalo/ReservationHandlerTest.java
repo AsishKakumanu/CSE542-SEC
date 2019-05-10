@@ -152,18 +152,5 @@ public class ReservationHandlerTest {
 		
 		assertEquals(updatedQueue.peek(), res2);
 	}
-	
-//	@Test
-//	public void testInitializeFrame() throws Exception{		
-//		JFrame intializeFrameSuccess = taLogin.initializeFrame("Test");	
-//		assertNotNull(intializeFrameSuccess);
-//	}
-//	
-//	@Test
-//	public void testInitializeLabel() throws Exception {		
-//		JFrame intializeFrameSuccess = taLogin.initializeFrame("Test");
-//		boolean intializeLabelSuccess = taLogin.initializeLabel(intializeFrameSuccess, "Check Label");
-//		assertEquals(intializeLabelSuccess, true);
-//	}
 
 }
