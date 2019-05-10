@@ -28,57 +28,52 @@ public class TaLoginTest {
 	Reservation res5 = new Reservation(5, "05/06/2019 15:10:58", stud5);
 	
 	@Test
-	public void testCheckIfStudentIsBanned() {
-		
+	public void testCheckIfStudentIsBanned() {		
 		String scheduledReservationTime = "05/06/2019 14:20:58";
 		boolean isBanned = taLogin.checkReservationPassedTime(scheduledReservationTime);
-		assertEquals(true, isBanned);
-		
+		assertEquals(true, isBanned);		
 	}
 	
 	@Test
 	public void testCheckQueueDetailsWhenQueueIsEmpty() {
-
 		String queueDetails = taLogin.checkReservationQueue(reservationQueue);
-		assertTrue(queueDetails.isEmpty());
-		
+		assertTrue(queueDetails.isEmpty());		
 	}
 	
 	@Test
 	public void testCheckQueueDetailsWhenQueueIsNotEmpty() {
-
 		reservationQueue.add(res1);
 		String result = taLogin.checkReservationQueue(reservationQueue);
-		assertFalse(result.isEmpty());
-		
+		assertFalse(result.isEmpty());		
 	}
 	
 	@Test
-	public void testRemoveReservationWhenStudentIsBanned() {
-		
+	public void testRemoveReservationWhenStudentIsBanned() {		
 		reservationQueue.add(res1);
 		reservationQueue.add(res2);
 		reservationQueue.add(res3);
 		reservationQueue.add(res4);
-		reservationQueue.add(res5);
-		
-		Queue<Reservation> updatedQueue = taLogin.changeReservationStatus(res1, true, reservationQueue);
-		
+		reservationQueue.add(res5);		
+		Queue<Reservation> updatedQueue = taLogin.changeReservationStatus(res1, true, reservationQueue);		
 		assertFalse(updatedQueue.contains(res1));
 	}
 	
 	@Test
-	public void testMoveToEndOfQueueWhenAbsent() {
-		
+	public void testMoveToEndOfQueueWhenAbsent() {		
 		reservationQueue.add(res1);
 		reservationQueue.add(res2);
 		reservationQueue.add(res3);
 		reservationQueue.add(res4);
-		reservationQueue.add(res5);
-		
-		Queue<Reservation> updatedQueue = taLogin.changeReservationStatus(res1, false, reservationQueue);
-		
+		reservationQueue.add(res5);		
+		Queue<Reservation> updatedQueue = taLogin.changeReservationStatus(res1, false, reservationQueue);		
 		assertEquals(updatedQueue.peek(), res2);
+	}
+	
+	@Test
+	public void testInitializeFrame() {		
+		JFrame intializeSuccess = taLogin.initializeFrame("Test");	
+		assertNotNull(intializeSuccess);
+		assertEquals(true, true);
 	}
 
 }

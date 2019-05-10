@@ -89,6 +89,7 @@ public class TaLogin {
 		shuffledNameList = getShuffledNameList(keys);
 		reservationQueue = reservationGenerator.generateReservations(0, 5, shuffledQuestionList, shuffledTimeList,
 				shuffledNameList, nameTable);
+//		displayResults(reservationQueue);
 
 		if (reservationQueue.isEmpty()) {
 			displayEmptyQueue();
@@ -374,7 +375,7 @@ public class TaLogin {
 	 * @param frameName
 	 * @return JFrame
 	 */
-	private JFrame initializeFrame(String frameName) {
+	public JFrame initializeFrame(String frameName) {
 		JFrame mainFrame = new JFrame(frameName);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -392,7 +393,7 @@ public class TaLogin {
 	 * @param mainFrame  Original frame created.
 	 * @param portalName String used for displaying the gui window name.
 	 */
-	private boolean initializeLabel(JFrame mainFrame, String portalName) {
+	public boolean initializeLabel(JFrame mainFrame, String portalName) {
 		JLabel taLabel = new JLabel(portalName);
 		taLabel.setFont(new Font("Verdana", Font.BOLD, 30));
 		taLabel.setForeground(Color.white);

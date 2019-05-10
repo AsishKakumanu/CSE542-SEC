@@ -21,20 +21,19 @@ public class ReservationTest {
 	
 	@Test
 	public void testReservationWhenQueueIsNotEmpty() {
-		int low = 0;
-		int high = 1;
+		int low = 1;
+		int high = 2;
 		
 		shuffledQuestionList.add("Where is Miki ?");
 		shuffledTimeList.add("05/06/2019 14:12:58");
-		shuffledNameList.add("Miki");
+		shuffledNameList.add("Miki Padhiary");
 		nameTable.put("Miki Padhiary", "mpadh@buffalo.edu");
 		
-		Reservation reservation = new Reservation(0, "05/06/2019 14:20:58", new Student("Miki", nameTable.get(0), null,  "Where is miki"));
+		Reservation reservation = new Reservation(0, "05/06/2019 14:20:58", new Student("Miki", nameTable.get(0), null,  "Where is Miki"));
 		reservationQueue.add(reservation);
 		
 		revGen.generateReservations(low, high, shuffledQuestionList, shuffledTimeList, shuffledNameList, nameTable);
-		assertEquals(reservationQueue.size(), 1);
-		
+		assertEquals(reservationQueue.size(), 1);	
 	}
 	
 	
