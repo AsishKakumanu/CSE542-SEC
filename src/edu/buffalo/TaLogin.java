@@ -66,12 +66,14 @@ public class TaLogin {
 	private List<Date> timeList = new ArrayList<Date>() {
 		{
 			Date date = new Date();
+			System.out.println("Date "+date);
 			currentTime = String.valueOf(dateFormat.format(date));
-			getTime(5);
-			getTime(11);
-			getTime(0);
-			getTime(4);
-			getTime(10);
+			System.out.println(currentTime);
+			getTime(5, currentTime);
+			getTime(11, currentTime);
+			getTime(0, currentTime);
+			getTime(4, currentTime);
+			getTime(10, currentTime);
 		}
 	};
 
@@ -442,11 +444,11 @@ public class TaLogin {
 	 * @param minutes number of minutes.
 	 * @return String
 	 */
-	public String getTime(int minutes) {
+	public String getTime(int minutes, String timeNow) {
 		final long ONE_MINUTE_IN_MILLIS = 60000;
 		Calendar cal = Calendar.getInstance();
 		try {
-			cal.setTime(dateFormat.parse(currentTime));
+			cal.setTime(dateFormat.parse(timeNow));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

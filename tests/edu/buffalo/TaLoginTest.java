@@ -3,6 +3,9 @@ package edu.buffalo;
 import static org.junit.Assert.*;
 
 import java.awt.Container;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -26,18 +29,29 @@ public class TaLoginTest {
 	Reservation res4 = new Reservation(4, "05/06/2019 14:50:58", stud4);
 	Reservation res5 = new Reservation(5, "05/06/2019 15:10:58", stud5);
 	
-//	@Test
-//	//Check if correct time is returned
-//	public void testCheckTimeReturned() throws Exception {		
-//		String expectedTime = " ";
-//		String actualTime = taLogin.getTime(10);
-//		assertEquals(actualTime, expectedTime);		
-//	}
+	@Test
+	//Check if correct time is returned before the given time
+	public void testTimeReturnedBefore() throws Exception {		
+		String oldTime = "05/06/2019 15:20:58";
+		String actualTime = taLogin.getTime(10,oldTime);
+		assertEquals(actualTime, "05/06/2019 15:10:58");		
+	}
+	
+	@Test
+	//Check if correct time is returned after the give time
+	public void testTimeReturnedAfter() throws Exception {		
+		String oldTime = "05/06/2019 15:20:58";
+		String actualTime = taLogin.getTime(5,oldTime);
+		assertEquals(actualTime, "05/06/2019 15:25:58");		
+	}
 	
 	@Test
 	//Check if student is banned if exactly 10 minutes has passed
-	public void testCheckIfStudentIsBannedInTenMinutes() throws Exception {		
-		String scheduledReservationTime = taLogin.getTime(10);
+	public void testCheckIfStudentIsBannedInTenMinutes() throws Exception {	
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		Date date = new Date();
+		String currentTime = String.valueOf(dateFormat.format(date));
+		String scheduledReservationTime = taLogin.getTime(10, currentTime);
 		boolean isBanned = taLogin.checkReservationPassedTime(scheduledReservationTime);
 		assertEquals(true, isBanned);		
 	}
@@ -45,7 +59,10 @@ public class TaLoginTest {
 	@Test
 	//Check if student is banned if more than 10 minutes has passed
 	public void testCheckIfStudentIsBannedAfterTenMinutes() throws Exception {		
-		String scheduledReservationTime = taLogin.getTime(11);
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		Date date = new Date();
+		String currentTime = String.valueOf(dateFormat.format(date));
+		String scheduledReservationTime = taLogin.getTime(11, currentTime);
 		boolean isBanned = taLogin.checkReservationPassedTime(scheduledReservationTime);
 		assertEquals(true, isBanned);		
 	}
@@ -53,7 +70,10 @@ public class TaLoginTest {
 	@Test
 	//Check if student is not banned if less than 10 minutes has passed
 	public void testCheckIfStudentIsNotBanned() throws Exception {		
-		String scheduledReservationTime = taLogin.getTime(9);
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		Date date = new Date();
+		String currentTime = String.valueOf(dateFormat.format(date));
+		String scheduledReservationTime = taLogin.getTime(9, currentTime);
 		boolean isBanned = taLogin.checkReservationPassedTime(scheduledReservationTime);
 		assertEquals(false, isBanned);		
 	}
