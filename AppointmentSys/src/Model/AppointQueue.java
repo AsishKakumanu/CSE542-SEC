@@ -1,4 +1,5 @@
 package Model;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -208,11 +209,12 @@ public class AppointQueue {
 		}
 		String[][] queueData = new String[queue.size()][5];
 		int i = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm:ss");
 		for (Appointment queElem : queue) { 
 			queueData[i][0] = ""+queElem.getID();			
 			queueData[i][1] = queElem.getName();
-			queueData[i][2] = queElem.getEmail();
-			queueData[i][3] = queElem.getDate().toString();
+			queueData[i][2] = queElem.getEmail();			
+			queueData[i][3] = sdf.format(queElem.getDate());
 			queueData[i][4] = queElem.getQuestion();	
 			i++;
 			}
@@ -231,9 +233,10 @@ public class AppointQueue {
 			return null;
 		}
 		String banListString = "";
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		for (BannedRecord record : banList) { 
-			banListString += "Email: " + record.getEmail() + "|Date: " + record.getDate().toString() +"\n";					
+			
+			banListString += "Email: " + record.getEmail() + "|Date: " + sdf.format(record.getDate()) +"\n";					
 			}
 		return banListString;
 	}

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -142,7 +143,8 @@ public class ReportPanel extends JPanel {
 //		data.getID();
 		String a = data.getName();
 		stuNameLabel.setText(data.getName());
-		reserveTimelabel.setText(data.getDate().toString());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		reserveTimelabel.setText(sdf.format(data.getDate()));
 		emailTextField.setText(data.getEmail());
 		questionTextArea.setText(data.getQuestion());
 		
