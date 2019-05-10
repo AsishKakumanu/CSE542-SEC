@@ -19,6 +19,8 @@ public class ReservationGeneratorTest {
 	Hashtable<String, String> nameTable = new Hashtable<String, String>();
 	Queue<Reservation> reservationQueue = new LinkedList<Reservation>();
 	
+	
+	/* Check if reservation queue is not empty when student name and question are provided to generate reservation. */
 	@Test
 	public void testReservationWhenQueueIsNotEmpty() {
 		int low = 1;
@@ -29,21 +31,17 @@ public class ReservationGeneratorTest {
 		shuffledNameList.add("Miki Padhiary");
 		nameTable.put("Miki Padhiary", "mpadh@buffalo.edu");
 		
-		@SuppressWarnings("unlikely-arg-type")
-		Reservation reservation = new Reservation(0, "05/06/2019 14:20:58", new Student("Miki", nameTable.get(0), null,  "Where is Miki"));
-		reservationQueue.add(reservation);
-		
-		revGen.generateReservations(low, high, shuffledQuestionList, shuffledTimeList, shuffledNameList, nameTable);
-		assertEquals(reservationQueue.size(), 1);	
+		Queue<Reservation> result = revGen.generateReservations(low, high, shuffledQuestionList, shuffledTimeList, shuffledNameList, nameTable);
+		assertEquals(result.size(), 1);	
 	}
 	
-	
+	/* Check if reservation queue is empty when no details are provided to create the reservation. */
 	@Test
 	public void testReservationWhenQueueIsEmpty() {
 		int low = 0;
 		int high = 1;
-		revGen.generateReservations(low, high, shuffledQuestionList, shuffledTimeList, shuffledNameList, nameTable);
-		assertEquals(reservationQueue.size(), 0);
+		Queue<Reservation> result = revGen.generateReservations(low, high, shuffledQuestionList, shuffledTimeList, shuffledNameList, nameTable);
+		assertEquals(result.size(), 0);
 	}
 
 }
