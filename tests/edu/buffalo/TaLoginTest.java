@@ -71,9 +71,15 @@ public class TaLoginTest {
 	
 	@Test
 	public void testInitializeFrame() {		
-		JFrame intializeSuccess = taLogin.initializeFrame("Test");	
-		assertNotNull(intializeSuccess);
-		assertEquals(true, true);
+		JFrame intializeFrameSuccess = taLogin.initializeFrame("Test");	
+		assertNotNull(intializeFrameSuccess);
+	}
+	
+	@Test
+	public void testInitializeLabel() {		
+		JFrame intializeFrameSuccess = taLogin.initializeFrame("Test");
+		boolean intializeLabelSuccess = taLogin.initializeLabel(intializeFrameSuccess, "Check Label");
+		assertEquals(intializeLabelSuccess, true);
 	}
 
 }
