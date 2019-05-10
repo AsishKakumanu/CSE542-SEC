@@ -10,7 +10,7 @@ import java.util.Queue;
 
 import org.junit.Test;
 
-public class ReservationTest {
+public class ReservationGeneratorTest {
 
 	ReservationGenerator revGen = new ReservationGenerator();
 	List<String> shuffledQuestionList = new ArrayList<String>();

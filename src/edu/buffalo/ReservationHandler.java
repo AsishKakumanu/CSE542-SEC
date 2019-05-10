@@ -31,7 +31,7 @@ import javax.swing.JTextPane;
  * @author miki
  *
  */
-public class TaLogin {
+public class ReservationHandler {
 
 	private Queue<Reservation> reservationQueue;
 	private String currentTime;
@@ -80,7 +80,7 @@ public class TaLogin {
 	/**
 	 * Constructor of TaLogin Class.
 	 */
-	public TaLogin() {
+	public ReservationHandler() {
 		ReservationGenerator reservationGenerator = new ReservationGenerator();
 		List<String> shuffledQuestionList;
 		List<String> shuffledTimeList;

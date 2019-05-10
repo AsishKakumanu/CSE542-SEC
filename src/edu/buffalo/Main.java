@@ -9,7 +9,7 @@ public class Main {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new TaLogin();
+					new ReservationHandler();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
