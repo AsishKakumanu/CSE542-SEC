@@ -1,9 +1,11 @@
 package edu.buffalo;
 
 public class Main {
-
+	
 	/**
-	 * Launch the application.
+	 * This is the driver class. It launches the application.
+	 * @author Miki Padhiary
+	 *
 	 */
 	public static void main(String[] args) {
 		java.awt.EventQueue.invokeLater(new Runnable() {

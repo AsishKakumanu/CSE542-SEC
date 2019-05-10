@@ -29,6 +29,7 @@ public class ReservationGeneratorTest {
 		shuffledNameList.add("Miki Padhiary");
 		nameTable.put("Miki Padhiary", "mpadh@buffalo.edu");
 		
+		@SuppressWarnings("unlikely-arg-type")
 		Reservation reservation = new Reservation(0, "05/06/2019 14:20:58", new Student("Miki", nameTable.get(0), null,  "Where is Miki"));
 		reservationQueue.add(reservation);
 		

@@ -24,13 +24,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
 /**
- * This class handles all the interactions with the gui and is the driver class.
- * This class is responsible for displaying reservation queue and handling empty
- * queue. Also, it takes care of absent and present functionality.
+ * This class handles all the interactions with the gui. It is responsible for displaying reservation queue and handling empty
+ * queue. It also takes care of absent and present functionality.
  * 
- * @author miki
+ * @author Miki Padhiary
  *
  */
+@SuppressWarnings("serial")
 public class ReservationHandler {
 
 	private Queue<Reservation> reservationQueue;
@@ -63,12 +63,11 @@ public class ReservationHandler {
 	};
 
 	// CurrentTime
+	@SuppressWarnings("unused")
 	private List<Date> timeList = new ArrayList<Date>() {
 		{
 			Date date = new Date();
-			System.out.println("Date "+date);
 			currentTime = String.valueOf(dateFormat.format(date));
-			System.out.println(currentTime);
 			getTime(5, currentTime);
 			getTime(11, currentTime);
 			getTime(0, currentTime);
@@ -78,7 +77,7 @@ public class ReservationHandler {
 	};
 
 	/**
-	 * Constructor of TaLogin Class.
+	 * Constructor of ReservationHandler Class.
 	 */
 	public ReservationHandler() {
 		ReservationGenerator reservationGenerator = new ReservationGenerator();
@@ -91,8 +90,7 @@ public class ReservationHandler {
 		shuffledNameList = getShuffledNameList(keys);
 		reservationQueue = reservationGenerator.generateReservations(0, 5, shuffledQuestionList, shuffledTimeList,
 				shuffledNameList, nameTable);
-//		displayResults(reservationQueue);
-
+		
 		if (reservationQueue.isEmpty()) {
 			displayEmptyQueue();
 		} else {
@@ -200,6 +198,14 @@ public class ReservationHandler {
 		});
 	}
 
+	/**
+	 * This methods returns the updated reservation queue after checking the banned status of the student.
+	 * 
+	 * @param currentReservation
+	 * @param isBanned
+	 * @param reservationQueue
+	 * @return Queue<Reservation>
+	 */
 	public Queue<Reservation> changeReservationStatus(Reservation currentReservation, boolean isBanned,
 			Queue<Reservation> reservationQueue) {
 		if (isBanned) {

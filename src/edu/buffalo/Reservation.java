@@ -1,9 +1,9 @@
 package edu.buffalo;
 
 /**
- * This is a POJO class for reservation. The reservation class will have the following properties student, reservationId, 
+ * This is a POJO class for reservation. The reservation class has the following properties student, reservationId, 
  * reservationTime and reservationStatus.
- * @author miki
+ * @author Miki Padhiary
  *
  */
 public class Reservation {

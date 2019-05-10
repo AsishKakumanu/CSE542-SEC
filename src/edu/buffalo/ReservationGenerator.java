@@ -1,21 +1,15 @@
 package edu.buffalo;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
-import java.util.TimeZone;
 
 /**
  * This class generates random number of reservations using generateReservations method.
- * @author miki
+ * @author Miki Padhiary
  *
  */
 public class ReservationGenerator {

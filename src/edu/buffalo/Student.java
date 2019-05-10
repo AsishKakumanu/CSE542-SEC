@@ -3,9 +3,9 @@ package edu.buffalo;
 import java.util.Date;
 
 /**
- * This is a POJO class for student. The student will have the following properties studentName, studentEmailId, bannedDate, student
+ * This is a POJO class for student. The student has the following properties studentName, studentEmailId, bannedDate, student
  * Queries.
- * @author miki
+ * @author Miki Padhiary
  *
  */
 
@@ -40,7 +40,7 @@ public class Student {
 	protected Date getBannedDate() {
 		return bannedDate;
 	}
-	protected void setBannedDate(Date BannedDate) {
+	protected void setBannedDate(Date bannedDate) {
 		this.bannedDate = bannedDate;
 	}
 	protected String getStudentQueries() {
